@@ -1,21 +1,39 @@
+import asyncio
 from aiogram import F, Router
-from aiogram.types import Message
+from aiogram.types import Message, CallbackQuery
 from aiogram.filters import CommandObject
 from aiogram.filters import Command
 from aiogram.filters import CommandStart
+from aiogram.enums import ChatAction  # показывает что бот якобы пишет и отвечает
+
+import app.keyboards as kb
+import app.keyboards as kb_inline
+
 
 router = Router()
 
 
 @router.message(CommandStart())  # диспетчер проверяет являться ли команда командой старт
 async def cmd_start(message: Message):
-    await message.answer(text='Hello dear, I am a Bot')
+    await message.bot.send_chat_action(chat_id=message.from_user.id, action=ChatAction.TYPING)
+    await asyncio.sleep(5)
+    await message.answer(text='Hello dear, I am a Bot', reply_markup=kb.main) # сюда вложили клавиатуру, клавиатура крепиться к определенному сообщению
     await message.reply('Я отвечаю как дела на твое смс')
+    
+@router.message(Command('test'))
+async def group_test(message:Message):
+    await message.bot.send_message(chat_id=message.chat.id, reply_to_message_id=message.message_id, text=f'Отвечаю вам Фак офф')
 
+
+@router.callback_query(F.data == 'write_me')
+async def cmd_write_me(callback:CallbackQuery):
+    await callback.answer('Ты! открыл каталог write_me, bye')
+    await callback.message.answer('Вы открыли write_me')
+    
 
 @router.message(Command('help'))
 async def cmd_help(message: Message):
-    await message.answer(f'{message.from_user.first_name}, вам нужна помошь?')
+    await message.answer(f'{message.from_user.first_name}, вам нужна помошь?', reply_markup=kb_inline.main_inline)
 
 
 # # CommandObject
