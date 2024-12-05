@@ -6,8 +6,8 @@ main = ReplyKeyboardMarkup(keyboard=[
      KeyboardButton(text='Корзина')],
     [KeyboardButton(text='Контакты', request_contact=True)]
 ],
-                             resize_keyboard=True,
-                            input_field_placeholder='Выберите пункт меню')
+    resize_keyboard=True,
+    input_field_placeholder='Выберите пункт меню')
 
 # main_inline = InlineKeyboardMarkup(inline_keyboard=[
 #     [InlineKeyboardButton(text='Написать Мне', url='https://t.me/kanich07'),

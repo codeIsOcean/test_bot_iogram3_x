@@ -5,12 +5,12 @@ from aiogram.types import Message  # Класс для работы с сооб�
 from aiogram.exceptions import TelegramAPIError  # Исключения Telegram API
 from aiogram.filters import CommandObject  # Для получения аргументов команды
 
-
 # Создаем экземпляр роутера
-wrouter = Router()
+w_router = Router()
+
 
 # Обработчик команды /warn
-@wrouter.message(Command(commands=["warn"]))  # Используем фильтр Command для команды warn
+@w_router.message(Command(commands=["warn"]))  # Используем фильтр Command для команды warn
 async def warn_user(message: Message, command: CommandObject):
     """
     Обработчик команды /warn.
@@ -21,7 +21,7 @@ async def warn_user(message: Message, command: CommandObject):
 
         # Проверяем, ответил ли админ на сообщение
         if not message.reply_to_message:
-            await message.answer("Эта команда должна быть ответом на сообщение.")
+            await message.answer("Эта команда должна быть ответом на сообщение. обязательно дела")
             return
 
         # Удаляем сообщение пользователя, на которое ответил админ
@@ -47,4 +47,3 @@ async def warn_user(message: Message, command: CommandObject):
     except Exception as e:
         # Обработка остальных ошибок
         await message.answer(f"Произошла ошибка: {e}")
-
