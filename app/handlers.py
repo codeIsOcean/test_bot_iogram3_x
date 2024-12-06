@@ -13,13 +13,14 @@ import app.builder as builder
 router = Router()
 
 
-@router.message(CommandStart())  # диспетчер проверяет являться ли команда командой старт
-async def cmd_start(message: Message):
-    await message.bot.send_chat_action(chat_id=message.from_user.id, action=ChatAction.TYPING)
-    await asyncio.sleep(5)
-    await message.answer(text='Hello dear, I am a Bot', reply_markup=kb.main)  # сюда вложили клавиатуру, клавиатура
-    # крепиться к определенному сообщению
-    await message.reply('Я отвечаю как дела на твое смс')
+# @router.message(CommandStart())  # диспетчер проверяет являться ли команда командой старт
+# async def cmd_start(message: Message):
+#     await message.bot.send_chat_action(chat_id=message.from_user.id, action=ChatAction.TYPING)
+#     await asyncio.sleep(5)
+#     await message.answer(text='Hello dear, I am a Bot', reply_markup=kb.main)  # сюда вложили клавиатуру, клавиатура
+#     # крепится к определенному сообщению
+#     await message.reply('Я отвечаю как дела на твое смс')
+
 
 
 @router.message(Command('test'))
@@ -39,12 +40,12 @@ async def cmd_help(message: Message):
     await message.answer(f'{message.from_user.first_name}, вам нужна помошь?', reply_markup=kb_inline.main_inline)
 
 
-@router.message(CommandStart())
-async def cmd_start(message: Message):
-    await message.answer(f'Привет:', reply_markup=builder.brands())
+# @router.message(CommandStart())
+# async def cmd_start(message: Message):
+#     await message.answer(f'Привет:', reply_markup=builder.brands())
 
 
-# # CommandObject
+#  CommandObject
 # @router.message(Command('get'))
 # async def cmd_get(message:Message, command: CommandObject):
 #     await message.answer(f'Вы ввели команду get с аргументом {command.args}')
